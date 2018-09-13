@@ -1,89 +1,105 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-    JBoss, Home of Professional Open Source
-    Copyright 2015, Red Hat, Inc. and/or its affiliates, and individual
-    contributors by the @authors tag. See the copyright.txt in the
-    distribution for a full listing of individual contributors.
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-    http://www.apache.org/licenses/LICENSE-2.0
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
--->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.jboss.eap.quickstarts</groupId>
-        <artifactId>quickstart-parent</artifactId>
-        <version>7.1.0.GA</version>
-        <relativePath>../pom.xml</relativePath>
-    </parent>
-    <artifactId>helloworld-ws</artifactId>
-    <packaging>war</packaging>
-    <name>${qs.name.prefix} helloworld-ws</name>
-    <description>This project demonstrates a Hello World JAX-WS web service</description>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.denofprogramming</groupId>
+	<artifactId>sampleWebApp</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
 
-    <licenses>
-        <license>
-            <name>Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
+	<name>Number Generator WebApp</name>
+	<url>http://denofprogramming.com</url>
 
-    <properties>
-        <!-- Remote Server URL -->
-        <remote.server.url>http://localhost:8080/</remote.server.url>
-    </properties>
+	<organization>
+		<name>denOfProgramming</name>
+		<url>www.denofprogramming.com</url>
+	</organization>
+	<description>Simple web application to show the Maven build tool in action.
+Also show cases the 'Simple Logging Framework - slf4j'.</description>
 
-    <dependencies>
-        <!-- Import the CDI API, we use provided scope as the API is included
-            in JBoss EAP -->
-        <dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
 
-        <!-- Test dependencies -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.arquillian.junit</groupId>
-            <artifactId>arquillian-junit-container</artifactId>
-            <scope>test</scope>
-        </dependency>
+	<properties>
+		<spring.version>4.0.3.RELEASE</spring.version>	
+	</properties>
 
-        <!-- Import the Common Annotations API (JSR-250), we use provided
-            scope as the API is included in JBoss EAP -->
-        <dependency>
-            <groupId>org.jboss.spec.javax.annotation</groupId>
-            <artifactId>jboss-annotations-api_1.2_spec</artifactId>
-            <scope>provided</scope>
-        </dependency>
 
-        <!-- Import the Servlet API, we use provided scope as the API is
-            included in JBoss EAP -->
-        <dependency>
-            <groupId>org.jboss.spec.javax.servlet</groupId>
-            <artifactId>jboss-servlet-api_3.1_spec</artifactId>
-            <scope>provided</scope>
-        </dependency>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<verbose>false</verbose>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<!-- We need this for a Servlet 3.0 environment, no web.xml anymore! -->
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<!-- first priority for the WAR name -->
+					<warName>mywebapp</warName>
+				</configuration>
+			</plugin>
+		</plugins>
+		<!-- shown as an example, second priority for the WAR name -->
+		<finalName>mywebappNameSecondOption</finalName>
+	</build>
 
-    </dependencies>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>			
+		</dependency>
 
-    <build>
-        <!-- Set the name of the WAR, used as the context root when the app is deployed -->
-        <finalName>${project.artifactId}</finalName>
-    </build>
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-math3</artifactId>
+			<version>3.2</version>
+		</dependency>
+
+		<!-- Servlet API, JSTL -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<!-- Logging dependencies -->
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Unit Test dependencies -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
 
 </project>
